@@ -14,26 +14,24 @@
 
 ## Overview
 
-TBD.
-
-
+Coming soon...
 
 ## Hardware
 
-TBD.
+Coming soon...
 
 See [PICO-Mechanism](https://github.com/pico-humanoid/pico-mechanism) and [PICO-Electronics](https://github.com/pico-humanoid/pico-electronics).
 
 ## Firmware
 
-TBD.
+Coming soon...
 
 See [PICO-Firmware](https://github.com/pico-humanoid/pico-firmware).
 
 ## Software
 
-TBD.
+Coming soon...
 
 ## Related Research
 
-TBD.
+Coming soon...
