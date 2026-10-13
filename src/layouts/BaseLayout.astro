@@ -1,0 +1,54 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+import '../styles/global.css';
+interface Props { title?: string; description?: string; noindex?: boolean; }
+const { title, description = site.description, noindex = false } = Astro.props;
+const pageTitle = title ? `${title} | ${site.name}` : `${site.name} | 人形机器人研究平台`;
+const canonical = new URL(Astro.url.pathname, site.url);
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#FFFFFF" id="theme-color" />
+    <title>{pageTitle}</title>
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/assets/PICO.png" />
+    <link rel="apple-touch-icon" href="/assets/PICO.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${site.url}/assets/PICO.png`} />
+    <meta name="twitter:card" content="summary" />
+    <script is:inline>
+      (() => {
+        document.documentElement.classList.add('js');
+        let preference;
+        try { preference = localStorage.getItem('pico-theme'); } catch {}
+        const dark = preference === 'dark' || (preference !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        document.getElementById('theme-color').setAttribute('content', dark ? '#111827' : '#FFFFFF');
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
+    <Header />
+    <main id="main-content"><slot /></main>
+    <Footer />
+    <div class="toast" role="status" aria-live="polite" aria-atomic="true" data-toast hidden></div>
+    <noscript><div class="noscript-note">日夜切换、搜索与语言提示需要启用 JavaScript。平台页面和资料链接仍可直接访问。</div></noscript>
+    <script>
+      import '../scripts/site';
+    </script>
+  </body>
+</html>

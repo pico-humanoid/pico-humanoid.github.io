@@ -1,0 +1,40 @@
+---
+import Icon from './Icon.astro';
+import { navigation, site } from '../data/site';
+const path = Astro.url.pathname;
+---
+<header class="site-header" data-header>
+  <div class="header-inner">
+    <a class="brand" href="/" aria-label="PICO-Humanoid 首页">
+      <img src="/assets/PICO.png" alt="" width="36" height="36" />
+      <span>PICO-Humanoid</span>
+    </a>
+    <nav class="desktop-navigation" aria-label="主导航">
+      {navigation.map((item, index) => 'children' in item ? (
+        <details class="nav-dropdown" data-dropdown>
+          <summary class:list={['nav-link', { active: item.children.some(child => !child.external && child.href === path) }]} aria-controls={`dropdown-${index}`}>
+            {item.label}<Icon name="chevron-down" />
+          </summary>
+          <div class="dropdown-bridge"><ul class="dropdown-list" id={`dropdown-${index}`}>
+            {item.children.map(child => <li><a href={child.href} target={child.external ? '_blank' : undefined} rel={child.external ? 'noopener noreferrer' : undefined} aria-current={child.href === path ? 'page' : undefined}>{child.label}{child.external && <Icon name="arrow-up-right" />}</a></li>)}
+          </ul></div>
+        </details>
+      ) : <a class:list={['nav-link', { active: item.href === path }]} href={item.href} aria-current={item.href === path ? 'page' : undefined}>{item.label}</a>)}
+    </nav>
+    <div class="header-tools">
+      <a class="github-link desktop-tool" href={site.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub 组织（新标签页打开）" title="GitHub"><Icon name="github" /><span>GitHub</span></a>
+      <button class="search-placeholder desktop-tool" type="button" data-notice="搜索功能建设中" aria-label="搜索（功能建设中）"><Icon name="search" /><span>搜索</span></button>
+      <button class="icon-button theme-toggle" type="button" data-theme-toggle aria-label="切换为深色模式" title="切换日夜模式"><Icon name="moon" class="theme-moon" /><Icon name="sun" class="theme-sun" /></button>
+      <button class="language-button desktop-tool" type="button" data-notice="英文版本建设中，当前保持中文" aria-label="语言：中文；英文版本建设中">中 / EN</button>
+      <button class="icon-button mobile-menu-toggle" type="button" data-mobile-toggle aria-controls="mobile-navigation" aria-expanded="false" aria-label="展开导航菜单"><Icon name="menu" class="menu-open-icon" /><Icon name="close" class="menu-close-icon" /></button>
+    </div>
+  </div>
+  <nav class="mobile-navigation" id="mobile-navigation" aria-label="移动端导航" hidden>
+    <div class="mobile-navigation-inner">
+      {navigation.map(item => 'children' in item ? (
+        <details class="mobile-nav-group"><summary>{item.label}<Icon name="chevron-down" /></summary><ul>{item.children.map(child => <li><a href={child.href} target={child.external ? '_blank' : undefined} rel={child.external ? 'noopener noreferrer' : undefined} aria-current={child.href === path ? 'page' : undefined}>{child.label}{child.external && <Icon name="arrow-up-right" />}</a></li>)}</ul></details>
+      ) : <a class="mobile-nav-link" href={item.href} aria-current={item.href === path ? 'page' : undefined}>{item.label}</a>)}
+      <div class="mobile-tools"><a href={site.github} target="_blank" rel="noopener noreferrer"><Icon name="github" />GitHub<Icon name="arrow-up-right" /></a><button type="button" data-notice="搜索功能建设中"><Icon name="search" />搜索</button><button type="button" data-notice="英文版本建设中，当前保持中文">中 / EN</button></div>
+    </div>
+  </nav>
+</header>

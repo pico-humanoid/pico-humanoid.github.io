@@ -1,37 +1,50 @@
-<div align="center">
+# PICO-Humanoid Website
 
-# PICO-Humanoid
+PICO-Humanoid 官网框架，使用 Astro 生成静态多页面网站。
 
-### **P**redictive **I**ntelligent **CO**ntrolled Humanoid Robot
+## 本地开发
 
-[![Status](https://img.shields.io/badge/Status-Under_Development-orange?style=flat-square)](#) [![Release](https://img.shields.io/github/v/release/ChhY-bit/pico-humanoid?style=flat-square)](https://github.com/ChhY-bit/pico-humanoid/releases/latest) [![Website](https://img.shields.io/badge/Website-picontrollab.com-0241A8?style=flat-square&logo=googlechrome&logoColor=white)](https://picontrollab.com/) <br>
-[![ROS 2](https://img.shields.io/badge/ROS%202-Jazzy-blue?style=flat-square&logo=ros&logoColor=white)](https://docs.ros.org/en/rolling/) [![Python](https://img.shields.io/badge/Python-3-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/) [![C](https://img.shields.io/badge/C-00599C?style=flat-square&logo=c&logoColor=white)](https://en.wikipedia.org/wiki/C_(programming_language)) [![CMake](https://img.shields.io/badge/CMake-009688?style=flat-square&logo=cmake&logoColor=white)](https://cmake.org/) <br>
-[![Jetson Orin NX](https://img.shields.io/badge/Jetson%20Orin%20NX-76B900?style=flat-square&logo=nvidia&logoColor=white)](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/) [![STM32](https://img.shields.io/badge/STM32-03234B?style=flat-square&logo=stmicroelectronics&logoColor=white)](https://www.st.com/en/microcontrollers-microprocessors/stm32-32-bit-arm-cortex-mcus.html)
+需要 Node.js 24 或更新的兼容版本，以及 npm。
 
-</div>
+```sh
+npm ci
+npm run dev
+```
 
-**PICO-Humanoid** is a humanoid robotics research platform independently developed by the [<u>**Predictive Intelligent Control Lab**</u>](https://picontrollab.com/).
+访问终端显示的本地地址，通常为 `http://127.0.0.1:4321/`。
 
-## Overview
+```sh
+npm run check
+npm run build
+npm run verify
+npm run preview
+```
 
-Coming soon...
+`dist/` 是可部署的静态产物。`verify` 检查生成页面、内部链接、图片和站点地图。
 
-## Hardware
+## 初版范围
 
-Coming soon...
+- PICO简介：项目首页与四项技术入口。
+- 使用指南：平台文档占位及组织 `.github` 中的工具链、MCP 指南入口。
+- 平台技术：机械设计、电子设计、固件设计、软件设计。
+- 研究成果：相关论文占位页。
+- 关于我们：实验室外链、开发/贡献团队占位页。
+- 搜索和语言入口点击显示建设中提示；日夜切换可用并记住选择。
 
-See [PICO-Mechanism](https://github.com/pico-humanoid/pico-mechanism) and [PICO-Electronics](https://github.com/pico-humanoid/pico-electronics).
+页面与导航内容在 `src/data/site.ts` 中集中维护；布局、导航、页脚分别位于 `src/layouts/` 和 `src/components/`，样式位于 `src/styles/global.css`。首页为 `src/pages/index.astro`，七个内容页共用 `src/pages/[...slug].astro`。未来可将各栏目逐步扩展为独立 Astro 或 Markdown 页面。
 
-## Firmware
+Logo 位于 `public/assets/PICO.png`，来自组织 `.github/profile/assets/PICO.png`。网站独立保存该资源；后续品牌更新时同步替换。图片用于首屏、导航、站点图标和社交分享。
 
-Coming soon...
+## GitHub Pages 发布
 
-See [PICO-Firmware](https://github.com/pico-humanoid/pico-firmware).
+网站目标地址：`https://pico-humanoid.github.io/`。
 
-## Software
+1. 在本仓库的 **Settings → Pages → Build and deployment** 中选择 **GitHub Actions**。
+2. 将通过本地检查的源代码推送到 `main`，或在 Actions 中手动运行 **Build and deploy website**。
+3. 工作流完成构建、检查与部署后，在 `github-pages` 环境中访问部署地址。
 
-Coming soon...
+推送到 `main` 会触发公开网站部署。Pull Request 仅构建检查，不部署。
 
-## Related Research
+这是组织站点，Astro 的 `site` 为 `https://pico-humanoid.github.io`，不设置仓库名称作为 `base`。各子页面可直接打开和刷新，404 页面由 `dist/404.html` 提供。
 
-Coming soon...
+部署工作流依赖 GitHub Pages 与 Actions 已启用；仓库可见性和组织设置需允许发布。

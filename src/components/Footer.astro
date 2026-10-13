@@ -1,0 +1,10 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+---
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand"><a href="/">PICO-Humanoid</a><span>平台持续开发中</span></div>
+    <nav class="footer-links" aria-label="页脚导航"><a href={site.lab} target="_blank" rel="noopener noreferrer">PI-Control Lab<Icon name="arrow-up-right" /></a><a href={site.github} target="_blank" rel="noopener noreferrer">GitHub<Icon name="arrow-up-right" /></a><a href="/about/team/">开发/贡献团队</a></nav>
+  </div>
+</footer>

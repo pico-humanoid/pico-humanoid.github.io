@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { pages, type ContentPage } from '../data/site';
+export function getStaticPaths() {
+  return pages.map(page => ({ params: { slug: page.path.replace(/^\/+|\/+$/g, '') }, props: { page } }));
+}
+interface Props { page: ContentPage; }
+const { page } = Astro.props;
+---
+<BaseLayout title={page.title} description={page.description}>
+  <article class="content-page container">
+    <nav class="breadcrumbs" aria-label="面包屑"><a href="/">PICO简介</a><span aria-hidden="true">/</span>{page.section !== page.title && <><span>{page.section}</span><span aria-hidden="true">/</span></>}<span aria-current="page">{page.title}</span></nav>
+    <header class="content-heading"><p class="eyebrow">{page.eyebrow}</p><h1>{page.title}</h1><p>{page.description}</p></header>
+    <section class="placeholder-panel" aria-labelledby="placeholder-title"><div class="placeholder-heading"><span class="status-dot" aria-hidden="true"></span><h2 id="placeholder-title">内容建设中</h2></div><p>本栏目将逐步补充以下内容：</p><ul>{page.upcoming.map(item => <li>{item}</li>)}</ul></section>
+    {page.resources.length > 0 && <section class="resource-section" aria-labelledby="resource-title"><h2 id="resource-title">现有资料与入口</h2><div class="resource-list">{page.resources.map(resource => <a class="resource-link" href={resource.href} target="_blank" rel="noopener noreferrer"><div><h3>{resource.label}</h3>{resource.description && <p>{resource.description}</p>}</div><Icon name="arrow-up-right" /></a>)}</div></section>}
+  </article>
+</BaseLayout>
