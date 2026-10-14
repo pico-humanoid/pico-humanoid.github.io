@@ -35,10 +35,10 @@ export const pages: ContentPage[] = [
     resources: [{ label: 'PICO-Mechanism', href: `${site.github}/pico-mechanism`, description: '机械设计仓库。' }],
   },
   {
-    path: '/platform/electronics/', title: '电子设计', section: '平台技术', eyebrow: 'PLATFORM / ELECTRONICS',
+    path: '/platform/electronics/', title: '电气设计', section: '平台技术', eyebrow: 'PLATFORM / ELECTRONICS',
     description: '这里将介绍 PICO-Humanoid 的电路设计与电子系统，并提供相关设计资料。',
     upcoming: ['电子系统概览', '电路设计与连接说明'],
-    resources: [{ label: 'PICO-Electronics', href: `${site.github}/pico-electronics`, description: '电子设计仓库。' }],
+    resources: [{ label: 'PICO-Electronics', href: `${site.github}/pico-electronics`, description: '电气设计仓库。' }],
   },
   {
     path: '/platform/firmware/', title: '固件设计', section: '平台技术', eyebrow: 'PLATFORM / FIRMWARE',
@@ -79,11 +79,12 @@ export const navigation: NavItem[] = [
   { label: '平台技术', children: pages.filter(p => p.section === '平台技术').map(p => ({ label: p.title, href: p.path })) },
   { label: '研究成果', children: [{ label: '相关论文', href: '/research/publications/' }] },
   { label: '关于我们', children: [{ label: 'PI-Control Lab', href: site.lab, external: true }, { label: '开发/贡献团队', href: '/about/team/' }] },
+  { label: '开发进度', href: '/progress/' },
 ];
 
 export const platform = [
   { title: '机械设计', description: '结构与机构设计', href: '/platform/mechanism/', icon: 'cog' },
-  { title: '电子设计', description: '电路与电子系统', href: '/platform/electronics/', icon: 'circuit' },
+  { title: '电气设计', description: '电路与电子系统', href: '/platform/electronics/', icon: 'circuit' },
   { title: '固件设计', description: '嵌入式固件', href: '/platform/firmware/', icon: 'cpu' },
   { title: '软件设计', description: '软件与控制系统', href: '/platform/software/', icon: 'code' },
 ] as const;

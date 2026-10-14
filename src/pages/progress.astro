@@ -1,0 +1,44 @@
+---
+import type { MarkdownInstance } from 'astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+
+const modules = import.meta.glob<MarkdownInstance<{ week: number; placeholder?: boolean }>>('../content/progress/*.md', { eager: true });
+const reports = Object.values(modules).sort((a, b) => b.frontmatter.week - a.frontmatter.week);
+const weeks = new Set<number>();
+for (const report of reports) {
+  const week = report.frontmatter.week;
+  if (!Number.isInteger(week) || week < 1 || weeks.has(week)) {
+    throw new Error(`周报 ${report.file} 的 week 必须是唯一的正整数。`);
+  }
+  weeks.add(week);
+}
+---
+<BaseLayout title="开发进度" description="PICO-Humanoid 每周开发总结与规划，记录机械组、电气组和固件组的工作进展。">
+  <div class="progress-page container">
+    <nav class="breadcrumbs" aria-label="面包屑"><a href="/">PICO简介</a><span aria-hidden="true">/</span><span aria-current="page">开发进度</span></nav>
+    <header class="content-heading"><p class="eyebrow">DEVELOPMENT PROGRESS</p><h1>开发进度</h1><p>每周回顾，持续推进。记录机械、电气与固件的工作进展，以及下一步的计划。</p></header>
+    {reports.length > 0 ? <section class="progress-board" aria-label="每周总结与规划" data-progress-board>
+      <div class="progress-toolbar">
+        <p class="progress-hint">最新周报在前 · 左右滑动查看不同周</p>
+        <div class="progress-controls" hidden data-progress-controls>
+          <span class="progress-counter" role="status" aria-live="polite" aria-atomic="true" data-progress-counter></span>
+          <button class="icon-button" type="button" aria-label="上一份周报" aria-controls="weekly-reports" data-progress-prev><Icon name="arrow-left" /></button>
+          <button class="icon-button" type="button" aria-label="下一份周报" aria-controls="weekly-reports" data-progress-next><Icon name="arrow-right" /></button>
+        </div>
+      </div>
+      <div class="progress-track" id="weekly-reports" tabindex="0" role="region" aria-label="周报展板，可使用左右方向键切换" data-progress-track>
+        {reports.map(report => {
+          const Content = report.Content;
+          return <article class="weekly-report" aria-label={`第${report.frontmatter.week}周总结与规划`} data-progress-card data-week={report.frontmatter.week}>
+            {report.frontmatter.placeholder && <span class="progress-placeholder">内容待补充</span>}
+            <div class="weekly-markdown"><Content /></div>
+          </article>;
+        })}
+      </div>
+    </section> : <div class="placeholder-panel"><h2>周报即将更新</h2><p>项目的每周总结与规划将在这里发布。</p></div>}
+  </div>
+  <script>
+    import '../scripts/progress';
+  </script>
+</BaseLayout>

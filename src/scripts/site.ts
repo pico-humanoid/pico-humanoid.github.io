@@ -29,7 +29,7 @@ window.addEventListener('storage', event => {
 });
 
 const dropdowns = [...document.querySelectorAll<HTMLDetailsElement>('[data-dropdown]')];
-const desktop = matchMedia('(min-width: 1121px)');
+const desktop = matchMedia('(min-width: 1281px)');
 const timers = new Map<HTMLDetailsElement, ReturnType<typeof setTimeout>>();
 const pinned = new Set<HTMLDetailsElement>();
 

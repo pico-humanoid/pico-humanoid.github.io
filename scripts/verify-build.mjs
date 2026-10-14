@@ -4,7 +4,7 @@ import { dirname, join, resolve } from 'node:path';
 
 const root = resolve('dist');
 assert.ok(existsSync(root), 'Run npm run build before verifying the output.');
-const expected = ['index.html', 'guides/index.html', 'platform/mechanism/index.html', 'platform/electronics/index.html', 'platform/firmware/index.html', 'platform/software/index.html', 'research/publications/index.html', 'about/team/index.html', '404.html'];
+const expected = ['index.html', 'guides/index.html', 'platform/mechanism/index.html', 'platform/electronics/index.html', 'platform/firmware/index.html', 'platform/software/index.html', 'research/publications/index.html', 'about/team/index.html', 'progress/index.html', '404.html'];
 expected.forEach(file => assert.ok(existsSync(join(root, file)), `Missing page: ${file}`));
 
 const files = [];
@@ -47,5 +47,6 @@ for (const file of files) {
 assert.ok(existsSync(join(root, 'assets/PICO.png')), 'Missing logo.');
 assert.ok(existsSync(join(root, 'robots.txt')), 'Missing robots.txt.');
 const sitemap = readFileSync(join(root, 'sitemap.xml'), 'utf8');
-assert.equal([...sitemap.matchAll(/<loc>/g)].length, 8, 'Sitemap must contain eight content pages.');
-console.log(`Verified ${files.length} pages, ${references} local links/assets, eight sitemap entries, and the logo.`);
+assert.equal([...sitemap.matchAll(/<loc>/g)].length, 9, 'Sitemap must contain nine content pages.');
+assert.ok(sitemap.includes('/progress/</loc>'), 'Missing progress page in sitemap.');
+console.log(`Verified ${files.length} pages, ${references} local links/assets, nine sitemap entries, and the logo.`);
