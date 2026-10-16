@@ -79,7 +79,6 @@ export const navigation: NavItem[] = [
   { label: '平台技术', children: pages.filter(p => p.section === '平台技术').map(p => ({ label: p.title, href: p.path })) },
   { label: '研究成果', children: [{ label: '相关论文', href: '/research/publications/' }] },
   { label: '关于我们', children: [{ label: 'PI-Control Lab', href: site.lab, external: true }, { label: '开发/贡献团队', href: '/about/team/' }] },
-  { label: '开发进度', href: '/progress/' },
 ];
 
 export const platform = [

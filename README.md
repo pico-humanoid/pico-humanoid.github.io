@@ -29,47 +29,11 @@ npm run preview
 - 平台技术：机械设计、电气设计、固件设计、软件设计。
 - 研究成果：相关论文占位页。
 - 关于我们：实验室外链、开发/贡献团队占位页。
-- 开发进度：从 Markdown 读取每周总结与规划，使用可左右滑动的展板。
 - 搜索和语言入口点击显示建设中提示；日夜切换可用并记住选择。
 
 页面与导航内容在 `src/data/site.ts` 中集中维护；布局、导航、页脚分别位于 `src/layouts/` 和 `src/components/`，样式位于 `src/styles/global.css`。首页为 `src/pages/index.astro`，七个内容页共用 `src/pages/[...slug].astro`。未来可将各栏目逐步扩展为独立 Astro 或 Markdown 页面。
 
 Logo 位于 `public/assets/PICO.png`，来自组织 `.github/profile/assets/PICO.png`。网站独立保存该资源；后续品牌更新时同步替换。图片用于首屏、导航、站点图标和社交分享。
-
-## 更新开发进度
-
-周报保存在 `src/content/progress/`，每周一个 `.md` 文件，页面地址为 `/progress/`。构建时自动读取所有周报，按 `week` 数字从大到小排列，默认展示最新一周；支持按钮、左右方向键和触摸滑动。
-
-新增一周时，复制 `week-002.md` 为 `week-003.md`，将顶部 `week: 2` 改成 `week: 3`，正文标题改成“第3周总结与规划”，然后填写各组事项。`week` 必须是唯一的正整数，文件名仅用于整理。
-
-初始两份周报是占位模板。填写真实内容后，将 `placeholder: true` 改成 `placeholder: false` 或删除这一行，即可移除“内容待补充”标记。
-
-正文保持下面的 Markdown 层级，可在每组下增加多项、链接或图片；不要在“上周完成”和“本周规划”两个顶层列表项之间插入额外标题，展板会将它们显示为两列：
-
-```md
----
-week: 3
----
-
-## 第3周总结与规划
-
-- 上周完成：
-  - 机械组
-    - XXX
-  - 电气组
-    - XXX
-  - 固件组
-    - XXX
-- 本周规划：
-  - 机械组
-    - XXX
-  - 电气组
-    - XXX
-  - 固件组
-    - XXX
-```
-
-更新 Markdown 后重新构建即可生效；推送到 `main` 后由现有 GitHub Actions 工作流更新线上页面。
 
 ## GitHub Pages 发布
 
