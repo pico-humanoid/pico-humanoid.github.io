@@ -14,6 +14,8 @@ export type ContentPage = {
   section: string;
   eyebrow: string;
   description: string;
+  statusTitle?: string;
+  statusIntro?: string;
   upcoming: string[];
   resources: Resource[];
 };
@@ -42,9 +44,21 @@ export const pages: ContentPage[] = [
   },
   {
     path: '/platform/firmware/', title: '固件设计', section: '平台技术', eyebrow: 'PLATFORM / FIRMWARE',
-    description: '这里将介绍 PICO-Humanoid 的嵌入式固件，以及相关开发与使用方式。',
-    upcoming: ['固件架构概览', '构建、烧录与调试说明'],
-    resources: [{ label: 'PICO-Firmware', href: `${site.github}/pico-firmware`, description: '嵌入式固件仓库。' }],
+    description: '开发板CAN通信、单/双电机位置与速度实验，以及原生开发控制台。更新于2026年11月14日；历史截止状态与后续实测分别记录。',
+    statusTitle: '阶段进展与验证边界',
+    statusIntro: '截至2026年11月10日，电机与开发板的通信尚未完成。以下后续成果不回填为11月10日前已完成：',
+    upcoming: [
+      '11月14日已取得双机目标回读、位置/速度/Iq及停止确认的原始记录；仍有位置跳变与停止后位置不稳定问题，未完成整机验收。',
+      '控制台支持单/双机滑块、可设置实验时长、限流和疑似受阻联动停机；额定限流设置仅完成软件验证，尚待实物验收。',
+      '本次提供Windows-x64离线包、程序源码、代表性成功与异常日志；Windows包不能在Ubuntu上运行，新版Ubuntu需单独构建验证。',
+    ],
+    resources: [
+      { label: 'Windows开发控制台下载', href: 'https://github.com/pico-humanoid/pico-firmware/releases/tag/desktop-v2026.11.14', description: '2026年11月14日Windows快照、使用说明与校验文件。' },
+      { label: '程序源码与入口索引', href: 'https://github.com/pico-humanoid/pico-firmware/blob/main/docs/program-index.md', description: '固件、控制台、日志查看器、测试及官方库适配。' },
+      { label: '11月10日阶段记录', href: 'https://github.com/pico-humanoid/pico-firmware/blob/main/docs/weekly/2026-11-10.md', description: '明确截止当日尚未完成电机—开发板通信。' },
+      { label: '11月14日原始日志与验证边界', href: 'https://github.com/pico-humanoid/pico-firmware/blob/main/docs/validation/2026-11-14-motor.md', description: '同时保留正常停机、位置跳变和目标清理未确认记录。' },
+      { label: 'PICO-Firmware', href: `${site.github}/pico-firmware`, description: '固件主仓库。' },
+    ],
   },
   {
     path: '/platform/software/', title: '软件设计', section: '平台技术', eyebrow: 'PLATFORM / SOFTWARE',
